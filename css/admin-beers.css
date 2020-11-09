@@ -1,0 +1,37 @@
+.admin-beers {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.admin-beers h1 {
+  font-size: 36px;
+  margin-top: 30px;
+}
+
+.manufacturer-list {
+  margin-top: 15px;
+}
+
+.manufacturer-list__item {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+.manufacturer-list__item .open {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background: transparent;
+  color: dimgray;
+  border: none;
+}
+
+.table {
+  text-align: center;
+  margin-bottom: 0;
+}
