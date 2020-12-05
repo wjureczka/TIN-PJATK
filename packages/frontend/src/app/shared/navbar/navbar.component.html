@@ -1,0 +1,27 @@
+<nav class="nav">
+  <a class="nav__company-name" routerLink="./home" routerLinkActive="active">
+    <h3>
+      {{'companyName' | translate}}
+    </h3>
+  </a>
+
+  <div class="nav__links">
+    <a class="nav__link" routerLink="./products" routerLinkActive="active">
+      {{'navbar.productsLink' | translate}}
+    </a>
+
+    <a class="nav__link" routerLink="./creator" routerLinkActive="active">
+      {{'navbar.creatorLink' | translate}}
+    </a>
+
+    <a class="nav__link" routerLink="./cart" routerLinkActive="active">
+      {{'navbar.cartLink' | translate}}
+    </a>
+  </div>
+
+  <div class="nav__menu">
+    <app-language-selector></app-language-selector>
+
+    <app-user-menu></app-user-menu>
+  </div>
+</nav>

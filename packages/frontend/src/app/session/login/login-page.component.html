@@ -1,0 +1,22 @@
+<app-credentials-form class="login-form" #form>
+
+  <p>{{'views.sessions.login-page.signIn' | translate}}</p>
+
+  <button mat-raised-button
+          color="primary"
+          [disabled]="!form.isValid"
+          (click)="signIn()">{{'button.login' | translate | uppercase}}
+  </button>
+
+  <ng-container footer>
+
+    <div class="login-form__divider"></div>
+
+    <div class="login-form__footer">
+      <span>{{'views.sessions.login-page.noAccount' | translate}}</span>
+      <a routerLink="/session/register">{{'views.sessions.login-page.register' | translate}}</a>
+    </div>
+
+  </ng-container>
+
+</app-credentials-form>

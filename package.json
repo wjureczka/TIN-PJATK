@@ -1,0 +1,38 @@
+{
+  "name": "cms-pjatk",
+  "version": "1.0.0",
+  "description": "Final projects of CMS implementation",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cms:start": "lerna run --parallel --scope backend --scope frontend start",
+    "cms:start-docker": "lerna run --parallel --scope backend --scope frontend start:docker",
+    "cms:build": "lerna run --parallel --scope backend --scope frontend build",
+    "cms:test": "lerna run --parallel --scope backend --scope frontend test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wjureczka/CMS-PJATK.git"
+  },
+  "workspaces": [
+    "./",
+    "./packages/*"
+  ],
+  "keywords": [
+    "cms",
+    "pjatk",
+    "angular",
+    "node",
+    "mongo"
+  ],
+  "author": "wjureczka@gmail.com",
+  "license": "GNU",
+  "bugs": {
+    "url": "https://github.com/wjureczka/CMS-PJATK/issues"
+  },
+  "homepage": "https://github.com/wjureczka/CMS-PJATK#readme",
+  "devDependencies": {
+    "@commitlint/cli": "11.0.0",
+    "@commitlint/config-conventional": "11.0.0",
+    "lerna": "3.22.1"
+  }
+}

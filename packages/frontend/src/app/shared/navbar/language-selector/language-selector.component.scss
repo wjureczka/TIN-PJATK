@@ -1,0 +1,42 @@
+@import "~@angular/material/theming";
+
+$flag-filter-shadow: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+$flag-font-size: 25px;
+
+.language-selector {
+  &__button {
+    font-size: $flag-font-size;
+    filter: $flag-filter-shadow;
+  }
+
+  :host ::ng-deep &__menu {
+    &.mat-menu-panel {
+      min-width: 0;
+      width: auto;
+      margin-left: 3.5px;
+    }
+  }
+
+  &__menu-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: $flag-font-size;
+
+    &:hover {
+      background: map-get($mat-deep-purple, 50);
+    }
+
+    &--active {
+      background: map-get($mat-deep-purple, 200);
+
+      &:hover {
+        background: map-get($mat-deep-purple, 200);
+      }
+    }
+  }
+
+  &__menu-flag {
+    filter: $flag-filter-shadow;
+  }
+}

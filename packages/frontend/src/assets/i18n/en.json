@@ -1,0 +1,20 @@
+{
+  "companyName": "Computer shop",
+
+  "navbar.productsLink": "Products",
+  "navbar.creatorLink": "Creator",
+  "navbar.cartLink": "Cart",
+
+  "button.login": "sign in",
+  "button.register": "register",
+
+  "shared.forms.credentials.email": "Email",
+  "shared.forms.credentials.password": "Password",
+
+  "views.sessions.login-page.signIn": "Sign in",
+  "views.sessions.login-page.noAccount": "You do not have an account?",
+  "views.sessions.login-page.register": "Register",
+  "views.sessions.register-page.register": "Registration",
+  "views.sessions.register-page.haveAccount": "Have account already?",
+  "views.sessions.register-page.login": "Log in"
+}
