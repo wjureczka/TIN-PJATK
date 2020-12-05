@@ -1,0 +1,45 @@
+version: '3'
+
+networks:
+  cms-pjatk-network:
+    driver: bridge
+
+services:
+  mongo:
+    restart: always
+    image: mongo:4.2.1-bionic
+    ports:
+      - ${MONGODB_PORT}:${MONGODB_PORT}
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    networks:
+      - cms-pjatk-network
+
+  mongo-ui:
+    restart: always
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_MONGODB_PORT=${MONGODB_PORT}
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=root
+    depends_on:
+      - mongo
+    networks:
+      - cms-pjatk-network
+
+#  cms-pjatk-backend-tmp:
+#    restart: always
+#    build: .
+#    ports:
+#      - '${SERVER_PORT}:${SERVER_PORT}'
+#    volumes:
+#      - ./:/usr/src/app
+#      - /usr/src/app/node_modules
+#    depends_on:
+#      - mongo
+#    networks:
+#      - cms-pjatk-network
