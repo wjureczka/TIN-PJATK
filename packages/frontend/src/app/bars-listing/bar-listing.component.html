@@ -1,0 +1,19 @@
+<div class="bar-listing">
+  <div class="bar-listing__header">
+
+    <h1>Bary</h1>
+
+    <div class="bar-listing__sort">
+      <mat-select [(value)]="currentSort" (valueChange)="handleSortSelectChange(currentSort)">
+        <mat-option *ngFor="let sortBy of sortByTypeToTranslation | keyvalue" [value]="sortBy.key">
+          {{sortBy.value}}
+        </mat-option>
+      </mat-select>
+    </div>
+  </div>
+
+  <ul class="bar-listing__list">
+      <app-bar *ngFor="let bar of bars" [bar]="bar"></app-bar>
+  </ul>
+</div>
+

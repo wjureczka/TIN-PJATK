@@ -1,5 +1,5 @@
 const jwtConstants = {
-  secret: 'very-secret-key-to-cms',
+  secret: 'very-secret-key-to-TIN',
   expiresIn: '60s',
 };
 

@@ -24,14 +24,13 @@ export class RegisterPageComponent implements OnInit {
   }
 
   async register(): Promise<any> {
-    console.log('hui');
     const { email, password } = this.form;
 
     this.sessionService.register({ email, password }).subscribe(
       () => {
         this.snackbar.open('Zarejestrowano!');
 
-        this.router.navigate(['session/login']);
+        this.router.navigate(['/login']);
       },
       (() => {
         this.snackbar.open('Ups!');

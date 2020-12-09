@@ -24,6 +24,6 @@ export class SessionService {
   }
 
   register(registerDTO: RegisterDTO): Observable<any> {
-    return this.http.post('http://localhost:3000/users', registerDTO);
+    return this.http.post('users', registerDTO);
   }
 }

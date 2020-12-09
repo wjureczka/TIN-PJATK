@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  CMS_API_URL: 'http://localhost:3000'
+  TIN_API_URL: 'http://localhost:3000'
 };
 
 /*

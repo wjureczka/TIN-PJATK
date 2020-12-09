@@ -1,43 +1,37 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import { HttpClient, HttpClientModule} from '@angular/common/http';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import {NavbarModule} from './shared/navbar/navbar.module';
-import {UserLayoutComponent} from './shared/layouts/user-layout/user-layout.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {ApiInterceptor} from "./core/api.interceptor";
+import {NavbarModule} from "./navbar/navbar.module";
+import {AppComponent} from "./app.component";
+import {HomeModule} from "./home/home.module";
+import {BarListingModule} from "./bars-listing/bar-listing.module";
+import {SessionModule} from "./session/session.module";
+import { BarComponent } from './bar/bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserLayoutComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NavbarModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: TranslationLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
     BrowserAnimationsModule,
+    NavbarModule,
+    HomeModule,
+    BarListingModule,
+    SessionModule
   ],
   providers: [
     MatSnackBar,
-],
+    { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-}
-
-export function TranslationLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http);
 }

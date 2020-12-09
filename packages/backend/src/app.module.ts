@@ -8,16 +8,18 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './auth/jwt.guard';
 import { MONGODB_PORT } from './config';
+import { BarsModule } from './bars/bars.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(`mongodb://root:root@localhost:${MONGODB_PORT}`, {
-      dbName: 'cms-pjatk',
+      dbName: 'tin-pjatk',
       useFindAndModify: false,
     }),
     UsersModule,
     AuthModule,
+    BarsModule,
   ],
   controllers: [AppController],
   providers: [

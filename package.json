@@ -1,24 +1,24 @@
 {
-  "name": "cms-pjatk",
+  "name": "tin-pjatk",
   "version": "1.0.0",
-  "description": "Final projects of CMS implementation",
+  "description": "Final projects of TIN implementation",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cms:start": "lerna run --parallel --scope backend --scope frontend start",
-    "cms:start-docker": "lerna run --parallel --scope backend --scope frontend start:docker",
-    "cms:build": "lerna run --parallel --scope backend --scope frontend build",
-    "cms:test": "lerna run --parallel --scope backend --scope frontend test"
+    "tin:start": "lerna run --parallel --scope backend --scope frontend start",
+    "tin:start-docker": "lerna run --parallel --scope backend --scope frontend start:docker",
+    "tin:build": "lerna run --parallel --scope backend --scope frontend build",
+    "tin:test": "lerna run --parallel --scope backend --scope frontend test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wjureczka/CMS-PJATK.git"
+    "url": "git+https://github.com/wjureczka/TIN-PJATK.git"
   },
   "workspaces": [
     "./",
     "./packages/*"
   ],
   "keywords": [
-    "cms",
+    "tin",
     "pjatk",
     "angular",
     "node",
@@ -27,9 +27,9 @@
   "author": "wjureczka@gmail.com",
   "license": "GNU",
   "bugs": {
-    "url": "https://github.com/wjureczka/CMS-PJATK/issues"
+    "url": "https://github.com/wjureczka/TIN-PJATK/issues"
   },
-  "homepage": "https://github.com/wjureczka/CMS-PJATK#readme",
+  "homepage": "https://github.com/wjureczka/TIN-PJATK#readme",
   "devDependencies": {
     "@commitlint/cli": "11.0.0",
     "@commitlint/config-conventional": "11.0.0",

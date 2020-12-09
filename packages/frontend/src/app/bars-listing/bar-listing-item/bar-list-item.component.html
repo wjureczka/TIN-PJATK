@@ -1,0 +1,24 @@
+<li class="bar">
+  <a class="bar__link" routerLink="/bar/{{bar._id}}" routerLinkActive="active">
+  <img src="assets/listing-bar.png" class="bar__photo"/>
+
+  <div class="bar__details">
+    <h2 class="bar__name">
+      {{bar.name}} <span class="bar__location">/ {{bar.location}}</span>
+    </h2>
+
+    <p class="bar__examples">
+      Przykładowe piwa: Piwo1, Piwo2, Piwo3
+    </p>
+
+    <div class="bar__thumbs">
+      {{bar.thumbsDown}}
+      <span class="material-icons">
+            thumbs_up_down
+          </span>
+      {{bar.thumbsUp}}
+    </div>
+
+  </div>
+  </a>
+</li>

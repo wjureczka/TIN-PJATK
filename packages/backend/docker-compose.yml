@@ -1,7 +1,7 @@
 version: '3'
 
 networks:
-  cms-pjatk-network:
+  tin-pjatk-network:
     driver: bridge
 
 services:
@@ -14,7 +14,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
     networks:
-      - cms-pjatk-network
+      - tin-pjatk-network
 
   mongo-ui:
     restart: always
@@ -29,17 +29,16 @@ services:
     depends_on:
       - mongo
     networks:
-      - cms-pjatk-network
+      - tin-pjatk-network
 
-#  cms-pjatk-backend:
+#  tin-pjatk-backend:
 #    restart: always
 #    build: .
 #    ports:
-#      - '${SERVER_PORT}:${SERVER_PORT}'
+#      - ${SERVER_PORT}:${SERVER_PORT}
 #    volumes:
 #      - ./:/usr/src/app
-#      - /usr/src/app/node_modules
 #    depends_on:
 #      - mongo
 #    networks:
-#      - cms-pjatk-network
+#      - tin-pjatk-network
