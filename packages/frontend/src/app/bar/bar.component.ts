@@ -22,9 +22,11 @@ export class BarComponent implements OnInit {
     this.barsService.getBar(this.barId).toPromise()
       .then((bar) => {
         this.bar = bar;
+        console.log(this.bar);
       })
       .catch(() => {
         this.snackbar.open('Nie udało się pobrać informacji o barze!')
       });
+
   }
 }

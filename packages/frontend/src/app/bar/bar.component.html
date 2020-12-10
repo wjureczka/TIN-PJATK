@@ -1,1 +1,50 @@
-<p>bar works!</p>
+<div class="bar">
+
+  <img src="assets/bar.png" alt="bar" class="bar__cover">
+
+  <div class="bar__details">
+    <h1 class="bar__name">
+      {{bar.name}} <span class="bar__location">/ {{bar.location}}</span>
+    </h1>
+
+    <div class="bar__rating">
+      <button class="bar__rating-up">
+      {{bar.thumbsUp}}
+        <span class="material-icons">
+            thumb_up
+          </span>
+      </button>
+      <button class="bar__rating-down">
+        <span class="material-icons">
+            thumb_down
+        </span>
+        {{bar.thumbsDown}}
+      </button>
+    </div>
+  </div>
+
+  <div class="bar__menu">
+    <h2>Menu</h2>
+
+    <ul class="bar__menu-list">
+      <li class="bar__menu-list-item">
+        <p>Producent</p>
+
+        <ul class="beer-list">
+          <li class="beer-list__item">
+            <p class="beer-name">Piwo</p>
+            <p class="beer-alcohol">5%</p>
+            <p class="beer-price">4.50 PLN</p>
+          </li>
+
+          <li class="beer-list__item">
+            <p class="beer-name">Bezalkoholowe</p>
+            <p class="beer-alcohol">0%</p>
+            <p class="beer-price">14.50 PLN</p>
+          </li>
+        </ul>
+
+      </li>
+    </ul>
+  </div>
+</div>

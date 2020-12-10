@@ -12,10 +12,12 @@ import {HomeModule} from "./home/home.module";
 import {BarListingModule} from "./bars-listing/bar-listing.module";
 import {SessionModule} from "./session/session.module";
 import { BarComponent } from './bar/bar.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,24 +5,23 @@ import {
   Body,
   Put,
   Param,
-  Delete, Query,
+  Delete,
+  Query,
 } from '@nestjs/common';
-import {BarsService} from './bars.service';
-import {CreateBarDto} from './dto/create-bar.dto';
-import {UpdateBarDto} from './dto/update-bar.dto';
-import {Public} from '../auth/public.decorator';
+import { BarsService } from './bars.service';
+import { CreateBarDto } from './dto/create-bar.dto';
+import { UpdateBarDto } from './dto/update-bar.dto';
+import { Public } from '../auth/public.decorator';
 
 export enum SortByType {
   BEST = 'BEST',
   NEWEST = 'NEWEST',
-  LONGEST_ON_MARKET = 'LONGEST_ON_MARKET'
+  LONGEST_ON_MARKET = 'LONGEST_ON_MARKET',
 }
-
 
 @Controller('bars')
 export class BarsController {
-  constructor(private readonly barsService: BarsService) {
-  }
+  constructor(private readonly barsService: BarsService) {}
 
   @Post()
   @Public()
@@ -34,14 +33,14 @@ export class BarsController {
   @Public()
   findAll(@Query('sortBy') sortByKey: SortByType = SortByType.BEST) {
     const sortByMap = new Map([
-      [SortByType.BEST, {thumbsUp: 'desc'}],
-      [SortByType.NEWEST, {createdAt: 'asc'}],
-      [SortByType.LONGEST_ON_MARKET, {operatingSinceDate: 'asc'}],
+      [SortByType.BEST, { thumbsUp: 'desc' }],
+      [SortByType.NEWEST, { createdAt: 'asc' }],
+      [SortByType.LONGEST_ON_MARKET, { operatingSinceDate: 'asc' }],
     ]);
 
     const sortBy = sortByMap.get(sortByKey);
 
-    return this.barsService.findAllWithSort({page: 1, limit: 15, sortBy});
+    return this.barsService.findAllWithSort({ page: 1, limit: 15, sortBy });
   }
 
   @Get(':id')

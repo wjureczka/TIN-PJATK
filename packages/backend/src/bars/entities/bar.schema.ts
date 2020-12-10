@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, SchemaTypes } from 'mongoose';
+import { User } from '../../users/entities/user.schema';
 
 type BarDocument = Bar & Document;
 
@@ -30,8 +31,6 @@ class Bar {
 
   @Prop({ required: true, default: false })
   isAcceptedByAdmin: boolean;
-
-
 }
 
 const BarSchema = SchemaFactory.createForClass(Bar);

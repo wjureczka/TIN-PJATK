@@ -1,0 +1,151 @@
+@import "~@angular/material/theming";
+@import "../../assets/layout";
+
+%thumb-rating-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+  transition: filter 225ms;
+
+  &:hover {
+    filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
+  }
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &__cover {
+    width: 100%;
+    max-width: 100%;
+    height: 300px;
+    image-rendering: optimizespeed;
+    object-fit: cover;
+  }
+
+  &__details {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column-reverse;
+    width: 100%;
+    margin-top: 10px;
+
+    @media (min-width: 600px) {
+      margin-top: 30px;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  &__name {
+    font-size: 36px;
+  }
+
+  &__location {
+    font-size: 24px;
+    color: dimgray;
+  }
+
+  &__rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+
+    .material-icons {
+      margin: 0 15px;
+    }
+
+    &-up {
+      @extend %thumb-rating-button;
+      color: map-get($mat-green, 400)
+    }
+
+    &-down {
+      @extend %thumb-rating-button;
+      color: map-get($mat-red, 400)
+    }
+  }
+
+  &__menu {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    font-size: 24px;
+    color: dimgray;
+    margin-top: 30px;
+
+    h2 {
+      font-size: 24px;
+    }
+  }
+
+  &__menu-list {
+    font-size: 14px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    gap: 20px;
+  }
+
+  &__menu-list-item {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-direction: column;
+    padding: 15px;
+    width: 250px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    text-align: center;
+  }
+}
+
+.beer-list {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+
+  &__item {
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+
+    p {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &-name {
+      text-align: left;
+      margin-bottom: 0;
+    }
+
+    &-alcohol {
+      margin-bottom: 0;
+    }
+
+    &-price {
+      margin-bottom: 0;
+    }
+  }
+}
+

@@ -17,15 +17,24 @@ export class BarsService {
     return this.barModel
       .find()
       .skip(page === 1 ? 0 : limit * page)
-      .limit(limit)
+      .limit(limit);
   }
 
-  findAllWithSort({ limit = 10, page = 1, sortBy = { thumbsUp: 'desc' }} : { limit: number, page: number, sortBy: Partial<Record<keyof Bar, string>> }) {
+  findAllWithSort({
+    limit = 10,
+    page = 1,
+    sortBy = { thumbsUp: 'desc' },
+  }: {
+    limit: number;
+    page: number;
+    sortBy: Partial<Record<keyof Bar, string>>;
+  }) {
+    // @todo use Model.aggregate
     return this.barModel
       .find()
       .sort(sortBy)
       .skip(page === 1 ? 0 : limit * page)
-      .limit(limit)
+      .limit(limit);
   }
 
   findOne(id: string) {
