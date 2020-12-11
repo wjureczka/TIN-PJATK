@@ -11,8 +11,8 @@ import {AppComponent} from "./app.component";
 import {HomeModule} from "./home/home.module";
 import {BarListingModule} from "./bars-listing/bar-listing.module";
 import {SessionModule} from "./session/session.module";
-import { BarComponent } from './bar/bar.component';
 import { ContactComponent } from './contact/contact.component';
+import {AdministrationModule} from "./administration/administration.module";
 
 @NgModule({
   declarations: [
@@ -27,7 +27,8 @@ import { ContactComponent } from './contact/contact.component';
     NavbarModule,
     HomeModule,
     BarListingModule,
-    SessionModule
+    SessionModule,
+    AdministrationModule
   ],
   providers: [
     MatSnackBar,

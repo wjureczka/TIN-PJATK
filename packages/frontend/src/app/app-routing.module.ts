@@ -6,6 +6,7 @@ import {RegisterPageComponent} from "./session/register/register-page.component"
 import {LoginPageComponent} from "./session/login/login-page.component";
 import {BarComponent} from "./bar/bar.component";
 import {ContactComponent} from "./contact/contact.component";
+import {AdministrationComponent} from "./administration/administration.component";
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
   {
     path: 'contact',
     component: ContactComponent
+  },
+  {
+    path: 'administration',
+    component: AdministrationComponent
   }
 ];
 

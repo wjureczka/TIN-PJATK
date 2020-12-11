@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './auth/jwt.guard';
 import { MONGODB_PORT } from './config';
 import { BarsModule } from './bars/bars.module';
+import { BeersModule } from './beers/beers.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { BarsModule } from './bars/bars.module';
     UsersModule,
     AuthModule,
     BarsModule,
+    BeersModule,
   ],
   controllers: [AppController],
   providers: [
