@@ -1,14 +1,22 @@
-<mat-accordion>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        This is the expansion title
-      </mat-panel-title>
-      <mat-panel-description>
-        This is a summary of the content
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <p>This is the primary content of the panel.</p>
-  </mat-expansion-panel>
-</mat-accordion>
+<section class="administration">
 
+  <h1 class="mat-display-1 administration__header ">Zarządzaj</h1>
+
+  <mat-accordion class="administration__accordion">
+    <app-beer-producer-panel></app-beer-producer-panel>
+    <app-beer-producer-panel></app-beer-producer-panel>
+  </mat-accordion>
+
+  <button
+    class="administration__add"
+    mat-fab
+    (click)="handleOnAddClick()"
+  >
+    <span *ngIf="!isLoading" class="material-icons">add</span>
+
+    <span *ngIf="isLoading">
+      <mat-spinner [diameter]="20"></mat-spinner>
+    </span>
+
+  </button>
+</section>

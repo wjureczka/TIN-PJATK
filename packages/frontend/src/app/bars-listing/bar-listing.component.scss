@@ -1,4 +1,4 @@
-@import "../../assets/layout";
+@import "src/assets/layout";
 
 .bar-listing {
   width: 100%;
@@ -17,8 +17,8 @@
     align-items: center;
 
     & h1 {
-      font-size: 36px;
       color: dimgray;
+      margin-bottom: 0;
     }
   }
 

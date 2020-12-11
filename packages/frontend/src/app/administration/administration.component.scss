@@ -1,0 +1,21 @@
+@import "~@angular/material/theming";
+@import "src/assets/layout";
+
+.administration {
+  max-width: $max-width;
+  margin: 0 auto;
+
+  &__header {
+    margin-bottom: 30px;
+    margin-top: 30px;
+  }
+
+  &__add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto 0 auto;
+    color: $white-87-opacity;
+    background-color: map-get($mat-green, 500);
+  }
+}

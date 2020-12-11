@@ -1,0 +1,11 @@
+@import "~@angular/material/theming";
+
+.manufacturer {
+  &__name {
+    line-height: 23px;
+
+    &--editable {
+      border-bottom: 1px solid map-get($mat-blue, 300);
+    }
+  }
+}

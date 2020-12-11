@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AdministrationService} from "./administration.service";
 
 @Component({
   selector: 'app-administration',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdministrationComponent implements OnInit {
 
-  constructor() { }
+  public isLoading: boolean = false;
+
+  constructor(private administrationService: AdministrationService) { }
 
   ngOnInit(): void {
   }
 
+  public handleOnAddClick() {
+    this.isLoading = true;
+
+    this.administrationService.createExampleProducer()
+      .toPromise()
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+
+    this.isLoading = false;
+  }
 }

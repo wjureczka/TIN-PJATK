@@ -2,9 +2,9 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {AppRoutingModule} from './app-routing.module';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {ApiInterceptor} from "./core/api.interceptor";
 import {NavbarModule} from "./navbar/navbar.module";
 import {AppComponent} from "./app.component";

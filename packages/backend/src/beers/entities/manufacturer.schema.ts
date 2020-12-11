@@ -6,13 +6,15 @@ type ManufacturerDocument = Manufacturer & Document;
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 class Manufacturer {
-  @Prop({ type: SchemaTypes.ObjectId })
   _id: string;
 
-  @Prop()
+  @Prop({ required: true, unique: true })
   name: string;
 
-  @Prop({ type: [{ type: SchemaTypes.ObjectId, ref: 'Beer' }] })
+  @Prop({
+    type: [{ type: SchemaTypes.ObjectId, ref: 'Beer' }],
+    default: [],
+  })
   beers: Beer[];
 }
 
