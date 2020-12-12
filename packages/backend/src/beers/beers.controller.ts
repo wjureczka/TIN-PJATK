@@ -8,16 +8,18 @@ import {
   Delete,
 } from '@nestjs/common';
 import { BeersService } from './beers.service';
-import { CreateBeerDto } from './dto/create-beer.dto';
-import { UpdateBeerDto } from './dto/update-beer.dto';
+import { CreateManufacturerDto } from './dto/create-manufacturer.dto';
+import { UpdateManufacturerDto } from './dto/update-manufacturer.dto';
 import { Public } from '../auth/public.decorator';
+import {UpdateBeerDto} from "./dto/update-beer.dto";
+import {CreateBeerDto} from "./dto/create-beer.dto";
 
 @Controller('manufacturers')
 export class BeersController {
   constructor(private readonly beersService: BeersService) {}
 
   @Post()
-  create(@Body() createBeerDto: CreateBeerDto) {
+  create(@Body() createBeerDto: CreateManufacturerDto) {
     // return this.beersService.create(createBeerDto);
   }
 
@@ -39,12 +41,25 @@ export class BeersController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateBeerDto: UpdateBeerDto) {
-    return this.beersService.update(+id, updateBeerDto);
+  @Public()
+  updateManufacturer(@Param('id') id: string, @Body() updateBeerDto: UpdateManufacturerDto) {
+    return this.beersService.updateManufacturer(id, updateBeerDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.beersService.remove(+id);
+  }
+
+  @Put('/beers/:id')
+  @Public()
+  updateBeer(@Param('id') id: string, @Body() updateBeerDto: UpdateBeerDto) {
+    return this.beersService.updateBeer(id, updateBeerDto);
+  }
+
+  @Post(':manufacturerId/beers')
+  @Public()
+  createBeer(@Param('manufacturerId') manufacturerId: string, @Body() createBeerDto: CreateBeerDto) {
+    return this.beersService.createBeer(manufacturerId, createBeerDto);
   }
 }

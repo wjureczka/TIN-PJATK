@@ -1,11 +1,10 @@
 import {IsNotEmpty, IsString} from 'class-validator'
+import {Beer} from "../entities/beer.schema";
 
-export class CreateBeerDto {
+export class CreateManufacturerDto {
   @IsNotEmpty()
   @IsString()
   name: string
 
-  @IsNotEmpty()
-  @IsString()
-  alcoholContent: string;
+  beers: Beer[]
 }

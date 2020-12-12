@@ -1,0 +1,36 @@
+<mat-expansion-panel class="manufacturer">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <p [attr.contenteditable]="isNameEditable"
+         (input)="handleManufacturerNameInput($event)"
+         (click)="handleManufacturerNameClick($event)"
+         (blur)="handleManufacturerNameBlur($event)"
+         class="manufacturer__name"
+         [class.manufacturer__name--editable]="isNameEditable"
+         [textContent]="changedManufacturerName"
+      >
+      </p>
+
+      <button mat-icon-button *ngIf="!isNameEditable" (click)="openManufacturerNameEdition($event)" [disabled]="isLoading">
+        <span class="material-icons"  >
+        edit
+        </span>
+      </button>
+
+      <button mat-icon-button (click)="cancelManufacturerNameEdition($event)" *ngIf="isNameEditable" [disabled]="isLoading">
+        <span class="material-icons"  >
+          clear
+        </span>
+      </button>
+
+      <button mat-icon-button *ngIf="isNameEditable" (click)="handleManufacturerNameChange($event)" [disabled]="isLoading">
+        <span class="material-icons" >
+          done
+        </span>
+      </button>
+
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <app-manufacturer-beers [manufacturerBeers]="manufacturer.beers" [manufacturedId]="manufacturer._id"></app-manufacturer-beers>
+</mat-expansion-panel>

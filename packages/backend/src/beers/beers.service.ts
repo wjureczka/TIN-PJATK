@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateBeerDto } from './dto/create-beer.dto';
-import { UpdateBeerDto } from './dto/update-beer.dto';
+import { CreateManufacturerDto } from './dto/create-manufacturer.dto';
+import { UpdateManufacturerDto } from './dto/update-manufacturer.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import {
   Manufacturer,
@@ -8,6 +8,7 @@ import {
 } from './entities/manufacturer.schema';
 import { Model } from 'mongoose';
 import { Beer, BeerDocument } from './entities/beer.schema';
+import {CreateBeerDto} from "./dto/create-beer.dto";
 
 @Injectable()
 export class BeersService {
@@ -40,8 +41,22 @@ export class BeersService {
     return `This action returns a #${id} beer`;
   }
 
-  update(id: number, updateBeerDto: UpdateBeerDto) {
-    return `This action updates a #${id} beer`;
+  updateManufacturer(id: string, updateBeerDto: UpdateManufacturerDto) {
+    return this.manufacturerModel.findOneAndUpdate({ _id: id }, { ...updateBeerDto });
+  }
+
+  updateBeer(id: string, updateBeerDto: UpdateManufacturerDto) {
+    return this.beerModel.findOneAndUpdate({ _id: id }, { ...updateBeerDto });
+  }
+
+  createBeer(manufacturerId: string, createBeerDto: CreateBeerDto) {
+    const newBeer = new this.beerModel({
+      name: createBeerDto.name,
+      alcoholContent: createBeerDto.alcoholContent,
+      producedBy: manufacturerId,
+    });
+
+    return newBeer.save()
   }
 
   remove(id: number) {

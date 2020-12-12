@@ -7,13 +7,13 @@ import {MatTableModule} from "@angular/material/table";
 import { AdministrationComponent } from './administration.component';
 import {AdministrationService} from "./administration.service";
 import {MatButtonModule} from "@angular/material/button";
-import { BeerProducerPanelComponent } from './beer-producer-panel/beer-producer-panel.component';
-import { ManufacturerBeersComponent } from './beer-producer-panel/manufacturer-beers/manufacturer-beers.component';
+import { ManufacturerPanelComponent } from './manufacturer-panel/manufacturer-panel.component';
+import { ManufacturerBeersComponent } from './manufacturer-panel/manufacturer-beers/manufacturer-beers.component';
 
 
 
 @NgModule({
-  declarations: [AdministrationComponent, BeerProducerPanelComponent, ManufacturerBeersComponent],
+  declarations: [AdministrationComponent, ManufacturerPanelComponent, ManufacturerBeersComponent],
   imports: [
     CommonModule,
     MatExpansionModule,

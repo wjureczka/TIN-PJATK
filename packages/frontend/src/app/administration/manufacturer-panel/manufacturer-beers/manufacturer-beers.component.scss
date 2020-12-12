@@ -1,0 +1,21 @@
+.manufacturer-beers {
+  width: 100%;
+
+
+  .mat-header-cell {
+    vertical-align: middle;
+  }
+
+  .mat-cell {
+    vertical-align: middle;
+  }
+
+  &__add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

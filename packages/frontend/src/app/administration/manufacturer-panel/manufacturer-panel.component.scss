@@ -2,7 +2,11 @@
 
 .manufacturer {
   &__name {
-    line-height: 23px;
+    display: flex;
+    align-items: center;
+    line-height: 15px;
+
+
 
     &--editable {
       border-bottom: 1px solid map-get($mat-blue, 300);
