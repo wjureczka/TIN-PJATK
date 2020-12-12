@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {ManufacturerWithBeers} from "../administration.service";
 
 @Component({
   selector: 'app-beer-producer-panel',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BeerProducerPanelComponent implements OnInit {
 
-  public isNameEditable: string = 'false';
+  public isNameEditable: boolean = false;
+
+  @Input()
+  public manufacturer: ManufacturerWithBeers
 
   constructor() { }
 
@@ -17,7 +21,7 @@ export class BeerProducerPanelComponent implements OnInit {
   public handleManufacturerNameClick($event) {
     $event.stopPropagation();
 
-    if (this.isNameEditable === 'false') {
+    if (!this.isNameEditable) {
       this.toggleManufacturerNameEdition($event);
     }
   }
@@ -29,7 +33,7 @@ export class BeerProducerPanelComponent implements OnInit {
 
   public toggleManufacturerNameEdition($event) {
     $event.stopPropagation();
-    this.isNameEditable = this.isNameEditable === 'true' ? 'false' : 'true';
+    this.isNameEditable = !this.isNameEditable;
   }
 
 }

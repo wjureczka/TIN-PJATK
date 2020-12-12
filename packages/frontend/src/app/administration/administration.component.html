@@ -3,8 +3,7 @@
   <h1 class="mat-display-1 administration__header ">Zarządzaj</h1>
 
   <mat-accordion class="administration__accordion">
-    <app-beer-producer-panel></app-beer-producer-panel>
-    <app-beer-producer-panel></app-beer-producer-panel>
+    <app-beer-producer-panel *ngFor="let manufacturer of manufacturers" [manufacturer]="manufacturer"></app-beer-producer-panel>
   </mat-accordion>
 
   <button

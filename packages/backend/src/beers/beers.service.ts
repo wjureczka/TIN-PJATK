@@ -33,7 +33,7 @@ export class BeersService {
   }
 
   findAll() {
-    return `This action returns all beers`;
+    return this.manufacturerModel.find().populate('beers');
   }
 
   findOne(id: number) {

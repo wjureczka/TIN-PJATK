@@ -5,25 +5,24 @@
          (click)="handleManufacturerNameClick($event)"
          (input)="handleManufacturerNameChange($event)"
          class="manufacturer__name"
-         [class.manufacturer__name--editable]="isNameEditable === 'true'"
+         [class.manufacturer__name--editable]="isNameEditable"
       >
-        This is the expansion title
-
+        {{manufacturer.name}}
       </p>
 
-      <span class="material-icons" (click)="toggleManufacturerNameEdition($event)">
+      <span class="material-icons" *ngIf="!isNameEditable" (click)="toggleManufacturerNameEdition($event)">
         edit
       </span>
 
-      <span class="material-icons" *ngIf="isNameEditable === 'true'" (click)="toggleManufacturerNameEdition($event)">
+      <span class="material-icons" *ngIf="isNameEditable" (click)="toggleManufacturerNameEdition($event)">
         clear
       </span>
 
-      <span class="material-icons" *ngIf="isNameEditable === 'true'">
+      <span class="material-icons" *ngIf="isNameEditable">
         done
       </span>
     </mat-panel-title>
   </mat-expansion-panel-header>
 
-  <app-manufacturer-beers></app-manufacturer-beers>
+  <app-manufacturer-beers [manufacturerBeers]="manufacturer.beers"></app-manufacturer-beers>
 </mat-expansion-panel>

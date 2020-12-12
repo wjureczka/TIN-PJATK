@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AdministrationService} from "./administration.service";
+import {AdministrationService, ManufacturerWithBeers} from "./administration.service";
 
 @Component({
   selector: 'app-administration',
@@ -10,9 +10,16 @@ export class AdministrationComponent implements OnInit {
 
   public isLoading: boolean = false;
 
+  public manufacturers: ManufacturerWithBeers[] = [];
+
   constructor(private administrationService: AdministrationService) { }
 
   ngOnInit(): void {
+    this.administrationService.getManufacturersWithBeers().toPromise()
+      .then((data) => {
+        this.manufacturers = data;
+      })
+      .catch(() => {})
   }
 
   public handleOnAddClick() {

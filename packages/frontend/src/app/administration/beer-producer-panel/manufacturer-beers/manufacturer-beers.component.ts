@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Beer} from "../../administration.service";
 
 export interface PeriodicElement {
   name: string;
@@ -19,6 +20,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
   { name: 'Neon', weight: 20.1797, editable: false},
 ];
 
+interface ManufacturerBeerElement extends Beer {
+  isEditable: boolean
+}
+
 @Component({
   selector: 'app-manufacturer-beers',
   templateUrl: './manufacturer-beers.component.html',
@@ -26,17 +31,29 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ManufacturerBeersComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'actions'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['index', 'name', 'alcoholContent', 'actions'];
+
+  @Input()
+  public manufacturerBeers: Beer[] = []
+
+  public manufacturerBeersDataSource: ManufacturerBeerElement[] = [];
 
   constructor() {
   }
 
   ngOnInit(): void {
+    this.manufacturerBeersDataSource = this.prepareManufacturerBeersDataSource(this.manufacturerBeers);
   }
 
-  public toggleRowEditable(element) {
-    element.editable = !element.editable;
+  public prepareManufacturerBeersDataSource(manufacturerBeers: Beer[]): ManufacturerBeerElement[] {
+    return manufacturerBeers.map((beer) => ({
+      ...beer,
+      isEditable: false
+    }))
+  }
+
+  public toggleRowEditable(element: ManufacturerBeerElement) {
+    element.isEditable = !element.isEditable;
   }
 
   public handleOnDone(element) {

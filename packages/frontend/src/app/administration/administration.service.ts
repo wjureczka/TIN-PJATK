@@ -3,12 +3,12 @@ import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 
-interface Beer {
+export interface Beer {
   name: string;
   alcoholContent: string;
 }
 
-interface ManufacturerWithBeers {
+export interface ManufacturerWithBeers {
   _id: string;
   name: string;
   beers: Beer[]
@@ -25,7 +25,7 @@ export class AdministrationService {
     return this.http.post('manufacturers/createExample', {});
   }
 
-  public getProducersWithBeers() {
-    return this.http.get('manufacturers') as Observable<ManufacturerWithBeers>;
+  public getManufacturersWithBeers() {
+    return this.http.get('manufacturers') as Observable<ManufacturerWithBeers[]>;
   }
 }

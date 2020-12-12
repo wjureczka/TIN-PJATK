@@ -28,6 +28,7 @@ export class BeersController {
   }
 
   @Get()
+  @Public()
   findAll() {
     return this.beersService.findAll();
   }
