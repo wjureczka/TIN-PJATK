@@ -3,7 +3,7 @@
   <h1 class="mat-display-1 administration__header ">Zarządzaj</h1>
 
   <mat-accordion class="administration__accordion">
-    <app-manufacturer-panel *ngFor="let manufacturer of manufacturers" [manufacturer]="manufacturer"></app-manufacturer-panel>
+    <app-manufacturer-panel *ngFor="let manufacturer of manufacturers" [manufacturer]="manufacturer" (onDeleteEvent)="handleOnDeleteEvent($event)"></app-manufacturer-panel>
   </mat-accordion>
 
   <button

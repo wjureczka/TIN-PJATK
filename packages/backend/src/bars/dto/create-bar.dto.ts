@@ -1,3 +1,3 @@
 import {Bar} from "../entities/bar.schema";
 
-export class CreateBarDto extends Bar {}
+export class CreateBarDto {}

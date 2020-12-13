@@ -47,8 +47,9 @@ export class BeersController {
   }
 
   @Delete(':id')
+  @Public()
   remove(@Param('id') id: string) {
-    return this.beersService.remove(+id);
+    return this.beersService.remove(id);
   }
 
   @Put('/beers/:id')

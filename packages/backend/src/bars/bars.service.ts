@@ -2,22 +2,38 @@ import { Injectable } from '@nestjs/common';
 import { CreateBarDto } from './dto/create-bar.dto';
 import { UpdateBarDto } from './dto/update-bar.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, SchemaTypes } from 'mongoose';
 import { Bar, BarDocument } from './entities/bar.schema';
+import { BarMenu, BarMenuDocument } from './entities/barMenu.schema';
+import { BeerPrice, BeerPriceDocument } from './entities/beerPrice.schema';
 
 @Injectable()
 export class BarsService {
-  constructor(@InjectModel(Bar.name) private barModel: Model<BarDocument>) {}
+  constructor(
+    @InjectModel(Bar.name) private barModel: Model<BarDocument>,
+    @InjectModel(BarMenu.name) private barMenuModel: Model<BarMenuDocument>,
+    @InjectModel(BeerPrice.name)
+    private beerPriceModel: Model<BeerPriceDocument>,
+  ) {}
 
   create(createBarDto: CreateBarDto) {
-    return new this.barModel(createBarDto).save();
+    const bar = new this.barModel(createBarDto);
+
+    return bar.save();
+  }
+
+  createBarMenu() {
+    const barMenu = new this.barMenuModel({
+      bar: '5fd60eb35a6c643ccebd7efe',
+      manufacturer: '5fd60085d325e52edb588f76',
+      beers: [],
+    });
+
+    return barMenu.save();
   }
 
   findAll({ limit = 10, page = 1 }) {
-    return this.barModel
-      .find()
-      .skip(page === 1 ? 0 : limit * page)
-      .limit(limit);
+    return this.barModel.find();
   }
 
   findAllWithSort({
@@ -37,8 +53,14 @@ export class BarsService {
       .limit(limit);
   }
 
-  findOne(id: string) {
-    return this.barModel.findById(id);
+  async findOne(id: string) {
+    return this.barModel.findById(id).populate({
+      path: 'menu',
+      populate: [
+        { path: 'manufacturer' },
+        { path: 'beers', populate: { path: 'beer' } },
+      ],
+    });
   }
 
   async update(id: string, updateBarDto: UpdateBarDto) {

@@ -8,11 +8,7 @@ type BeerDocument = Beer & Document;
 class Beer {
   _id: string;
 
-  // @todo create unique subdocumen within Manufacturer schema
-  @Prop({ type: SchemaTypes.ObjectId, ref: 'Manufacturer', required: true })
-  producedBy: Manufacturer
-
-  @Prop({ required: true, validate: (schema) => { console.log(schema); return schema;}})
+  @Prop({ required: true })
   name: string;
 
   @Prop({ required: true })
@@ -20,9 +16,5 @@ class Beer {
 }
 
 const BeerSchema = SchemaFactory.createForClass(Beer);
-
-BeerSchema.pre('validate', () => {
-
-});
 
 export { Beer, BeerSchema, BeerDocument };

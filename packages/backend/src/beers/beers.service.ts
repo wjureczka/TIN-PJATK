@@ -8,7 +8,7 @@ import {
 } from './entities/manufacturer.schema';
 import { Model } from 'mongoose';
 import { Beer, BeerDocument } from './entities/beer.schema';
-import {CreateBeerDto} from "./dto/create-beer.dto";
+import { CreateBeerDto } from './dto/create-beer.dto';
 
 @Injectable()
 export class BeersService {
@@ -20,17 +20,23 @@ export class BeersService {
   ) {}
 
   async createExample() {
+    const manufacturer = await new this.manufacturerModel({
+      name: `Example ${new Date().toUTCString()}`,
+      beers: [],
+    });
+
     const beer = await new this.beerModel({
       name: 'Example beer',
       alcoholContent: '5%',
+      producedBy: manufacturer._id,
     });
 
-    const manufacturer = await new this.manufacturerModel({
-      name: `Example ${new Date().toUTCString()}`,
-      beers: [beer],
-    });
+    manufacturer.beers.push(beer);
 
-    return Promise.all([beer.save(), manufacturer.save()]);
+    await beer.save();
+    await manufacturer.save();
+
+    return manufacturer.populate('beers');
   }
 
   findAll() {
@@ -42,24 +48,44 @@ export class BeersService {
   }
 
   updateManufacturer(id: string, updateBeerDto: UpdateManufacturerDto) {
-    return this.manufacturerModel.findOneAndUpdate({ _id: id }, { ...updateBeerDto });
+    return this.manufacturerModel.findOneAndUpdate(
+      { _id: id },
+      { ...updateBeerDto },
+    );
   }
 
   updateBeer(id: string, updateBeerDto: UpdateManufacturerDto) {
     return this.beerModel.findOneAndUpdate({ _id: id }, { ...updateBeerDto });
   }
 
-  createBeer(manufacturerId: string, createBeerDto: CreateBeerDto) {
+  async createBeer(manufacturerId: string, createBeerDto: CreateBeerDto) {
     const newBeer = new this.beerModel({
       name: createBeerDto.name,
       alcoholContent: createBeerDto.alcoholContent,
       producedBy: manufacturerId,
     });
 
-    return newBeer.save()
+    const manufacturer = await this.manufacturerModel.findByIdAndUpdate(
+      manufacturerId,
+      {
+        $addToSet: {
+          beers: newBeer,
+        },
+      },
+    );
+
+    return manufacturer.save() && newBeer.save();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} beer`;
+  async remove(id: string) {
+    const manufacturer = await this.manufacturerModel
+      .findById(id)
+      .populate('beers');
+
+    await this.beerModel.deleteMany({ producedBy: manufacturer._id });
+
+    await manufacturer.deleteOne();
+
+    return;
   }
 }

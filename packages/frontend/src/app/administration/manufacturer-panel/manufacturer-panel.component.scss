@@ -12,4 +12,8 @@
       border-bottom: 1px solid map-get($mat-blue, 300);
     }
   }
+
+  .mat-expansion-panel-header-description {
+    justify-content: flex-end;
+  }
 }

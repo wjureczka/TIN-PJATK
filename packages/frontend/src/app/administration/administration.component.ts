@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AdministrationService, ManufacturerWithBeers} from "./administration.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-administration',
@@ -12,7 +13,7 @@ export class AdministrationComponent implements OnInit {
 
   public manufacturers: ManufacturerWithBeers[] = [];
 
-  constructor(private administrationService: AdministrationService) { }
+  constructor(private administrationService: AdministrationService, private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.administrationService.getManufacturersWithBeers().toPromise()
@@ -28,12 +29,17 @@ export class AdministrationComponent implements OnInit {
     this.administrationService.createExampleProducer()
       .toPromise()
       .then((response) => {
-        console.log(response)
+        this.manufacturers.push(response);
       })
-      .catch((error) => {
-        console.log(error)
+      .catch(() => {
+        this.snackbar.open('Nie udało się stworzyć nowego producenta')
       });
 
     this.isLoading = false;
+  }
+
+  public handleOnDeleteEvent(manufacturer: ManufacturerWithBeers) {
+    const deletedManufacturerIndex = this.manufacturers.indexOf(manufacturer)
+    this.manufacturers.splice(deletedManufacturerIndex, 1);
   }
 }

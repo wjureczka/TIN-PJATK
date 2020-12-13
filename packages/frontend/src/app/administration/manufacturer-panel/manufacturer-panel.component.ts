@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AdministrationService, ManufacturerWithBeers} from "../administration.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
@@ -17,6 +17,9 @@ export class ManufacturerPanelComponent implements OnInit {
 
   @Input()
   public manufacturer: ManufacturerWithBeers;
+
+  @Output()
+  public onDeleteEvent: EventEmitter<ManufacturerWithBeers> = new EventEmitter();
 
   constructor(private administrationService: AdministrationService, private snackbar: MatSnackBar) { }
 
@@ -60,6 +63,18 @@ export class ManufacturerPanelComponent implements OnInit {
       })
       .catch(() => {
         this.snackbar.open('Nie udało zmienić się nazwy producenta');
+      })
+  }
+
+  public deleteManufacturer($event) {
+    $event.stopPropagation();
+    this.administrationService.deleteManufacturer(this.manufacturer)
+      .toPromise()
+      .then(() => {
+        this.onDeleteEvent.emit(this.manufacturer);
+      })
+      .catch(() => {
+        this.snackbar.open('Nie udało się usunąć producenta');
       })
   }
 }

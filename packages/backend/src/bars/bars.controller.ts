@@ -29,6 +29,12 @@ export class BarsController {
     return this.barsService.create(createBarDto);
   }
 
+  @Post('/bar-menu')
+  @Public()
+  createBarMenu() {
+    return this.barsService.createBarMenu();
+  }
+
   @Get()
   @Public()
   findAll(@Query('sortBy') sortByKey: SortByType = SortByType.BEST) {

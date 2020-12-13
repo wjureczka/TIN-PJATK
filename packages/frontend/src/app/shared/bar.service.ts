@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {Beer, ManufacturerWithBeers} from "../administration/administration.service";
 
 export enum SortByType {
   BEST= 'BEST',
@@ -18,6 +19,10 @@ export interface Bar {
   coverPhoto: string;
   operatingSinceDate: Date;
   isAcceptedByAdmin: boolean;
+  menu: {
+    manufacturer: Pick<ManufacturerWithBeers, 'name'>
+    beers: { beer: Beer, price: number }[]
+  }[]
 }
 
 @Injectable({

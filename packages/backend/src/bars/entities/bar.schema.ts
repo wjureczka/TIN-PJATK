@@ -1,13 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, SchemaTypes } from 'mongoose';
-import { User } from '../../users/entities/user.schema';
 import { BarMenu } from './barMenu.schema';
 
 type BarDocument = Bar & Document;
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 class Bar {
-  @Prop({ type: SchemaTypes.ObjectId })
   _id: string;
 
   @Prop({ required: true, unique: true })
@@ -39,10 +37,7 @@ class Bar {
     default: [],
     type: [{ type: SchemaTypes.ObjectId, ref: 'BarMenu' }],
   })
-  menu: BarMenu;
-
-  @Prop({ required: true, type: SchemaTypes.ObjectId, ref: 'User' })
-  owner: User;
+  menu: BarMenu[];
 }
 
 const BarSchema = SchemaFactory.createForClass(Bar);

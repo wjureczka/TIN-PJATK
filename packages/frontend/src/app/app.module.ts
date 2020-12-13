@@ -13,6 +13,7 @@ import {BarListingModule} from "./bars-listing/bar-listing.module";
 import {SessionModule} from "./session/session.module";
 import { ContactComponent } from './contact/contact.component';
 import {AdministrationModule} from "./administration/administration.module";
+import {BarModule} from "./bar/bar.module";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {AdministrationModule} from "./administration/administration.module";
     BrowserAnimationsModule,
     NavbarModule,
     HomeModule,
+    BarModule,
     BarListingModule,
     SessionModule,
     AdministrationModule

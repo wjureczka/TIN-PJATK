@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpResponse, HttpResponseBase} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 
@@ -23,8 +23,8 @@ export class AdministrationService {
 
   constructor(private http: HttpClient) { }
 
-  public createExampleProducer(): Observable<any> {
-    return this.http.post('manufacturers/createExample', {});
+  public createExampleProducer() {
+    return this.http.post('manufacturers/createExample', {}) as Observable<ManufacturerWithBeers>;
   }
 
   public getManufacturersWithBeers() {
@@ -41,5 +41,9 @@ export class AdministrationService {
 
   public addBeer(beer: Pick<Beer, '_manufacturerId' | 'name' | 'alcoholContent'>) {
     return this.http.post(`manufacturers/${beer._manufacturerId}/beers`, { name: beer.name, alcoholContent: beer.alcoholContent }) as Observable<Beer>
+  }
+
+  public deleteManufacturer(manufacturer: ManufacturerWithBeers) {
+    return this.http.delete(`manufacturers/${manufacturer._id}`) as Observable<HttpResponseBase>
   }
 }

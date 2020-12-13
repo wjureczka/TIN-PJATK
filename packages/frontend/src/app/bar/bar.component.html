@@ -1,4 +1,8 @@
-<div class="bar">
+<div *ngIf="!bar">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="!!bar" class="bar">
 
   <img src="assets/bar.png" alt="bar" class="bar__cover">
 
@@ -27,23 +31,23 @@
     <h2>Menu</h2>
 
     <ul class="bar__menu-list">
-      <li class="bar__menu-list-item">
-        <p>Producent</p>
+      <li class="bar__menu-list-item" *ngFor="let menu of bar.menu">
+        <p>{{menu.manufacturer.name}}</p>
 
         <ul class="beer-list">
-          <li class="beer-list__item">
-            <p class="beer-name">Piwo</p>
-            <p class="beer-alcohol">5%</p>
-            <p class="beer-price">4.50 PLN</p>
-          </li>
-
-          <li class="beer-list__item">
-            <p class="beer-name">Bezalkoholowe</p>
-            <p class="beer-alcohol">0%</p>
-            <p class="beer-price">14.50 PLN</p>
+          <li class="beer-list__item" *ngFor="let beer of menu.beers">
+            <p class="beer-name">{{beer.beer.name}}</p>
+            <p class="beer-alcohol">{{beer.beer.alcoholContent}}</p>
+            <p class="beer-price">{{beer.price}}</p>
           </li>
         </ul>
 
+      </li>
+
+      <li>
+        <button mat-icon-button (click)="handleOnMenuAddClick()">
+          <span class="material-icons">add</span>
+        </button>
       </li>
     </ul>
   </div>
