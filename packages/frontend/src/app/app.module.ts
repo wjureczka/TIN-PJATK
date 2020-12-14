@@ -1,8 +1,9 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { CookieService } from 'ngx-cookie-service';
 
 import {AppRoutingModule} from './app-routing.module';
 import {ApiInterceptor} from "./core/api.interceptor";
@@ -14,6 +15,8 @@ import {SessionModule} from "./session/session.module";
 import { ContactComponent } from './contact/contact.component';
 import {AdministrationModule} from "./administration/administration.module";
 import {BarModule} from "./bar/bar.module";
+import {AuthService} from "./shared/auth.service";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -30,9 +33,12 @@ import {BarModule} from "./bar/bar.module";
     BarModule,
     BarListingModule,
     SessionModule,
-    AdministrationModule
+    AdministrationModule,
+    MatProgressSpinnerModule
   ],
   providers: [
+    AuthService,
+    CookieService,
     MatSnackBar,
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
   ],

@@ -18,6 +18,9 @@ class User {
   @Prop({ required: false })
   refresh_token?: string;
 
+  @Prop({ required: true, default: false })
+  isAdmin: boolean;
+
   @Prop({
     required: false,
     default: [],

@@ -19,6 +19,10 @@ export class UsersService {
     return this.userModel.find();
   }
 
+  findOneByIdAndRefreshToken(id: string, refreshToken: string) {
+    return this.userModel.findOne({ _id: id, refresh_token: refreshToken });
+  }
+
   findOneByEmail(email: string) {
     return this.userModel.findOne({ email });
   }

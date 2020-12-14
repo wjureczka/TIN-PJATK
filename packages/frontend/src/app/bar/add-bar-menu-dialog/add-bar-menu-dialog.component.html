@@ -4,7 +4,7 @@
   <mat-form-field class="add-bar-menu-dialog__manufacturer-select">
     <mat-label>Wybierz producenta</mat-label>
     <mat-select [(value)]="selectedManufacturer">
-      <mat-option *ngFor="let manufacturer of manufacturers" [value]="manufacturer">
+      <mat-option *ngFor="let manufacturer of mappedManufacturers" [value]="manufacturer">
         {{manufacturer.name}}
       </mat-option>
     </mat-select>
@@ -31,10 +31,7 @@
         {{beer.alcoholContent}}
       </div>
       <div>
-        <mat-form-field class="example-full-width">
-          <mat-label>Cena</mat-label>
-          <input matInput placeholder="Cena" type="number">
-        </mat-form-field>
+        <input matInput placeholder="Cena" type="number" [(ngModel)]="beer.price" min="0">
       </div>
     </li>
   </ul>
@@ -42,5 +39,5 @@
 </div>
 <div mat-dialog-actions class="add-bar-menu-dialog__actions">
   <button mat-button (click)="onNoClick()">Zamknij</button>
-  <button mat-flat-button color="primary">Dodaj</button>
+  <button mat-flat-button color="primary" (click)="handleAddMenuClick()" [disabled]="!selectedManufacturer">Dodaj</button>
 </div>

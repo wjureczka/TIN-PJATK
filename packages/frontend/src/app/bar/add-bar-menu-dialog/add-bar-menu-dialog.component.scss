@@ -19,6 +19,10 @@
     padding-top: 10px;
     border-bottom: 1px solid dimgray;
 
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+
     &:first-of-type {
       margin-top: 0;
     }
@@ -33,5 +37,6 @@
   &__actions {
     display: flex;
     justify-content: space-around;
+    margin-top: 30px;
   }
 }

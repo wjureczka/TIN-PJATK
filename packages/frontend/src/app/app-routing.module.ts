@@ -7,6 +7,7 @@ import {LoginPageComponent} from "./session/login/login-page.component";
 import {BarComponent} from "./bar/bar.component";
 import {ContactComponent} from "./contact/contact.component";
 import {AdministrationComponent} from "./administration/administration.component";
+import {AdminGuard} from "./core/admin.guard";
 
 const routes: Routes = [
   {
@@ -31,7 +32,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginPageComponent
+    component: LoginPageComponent,
   },
   {
     path: 'contact',
@@ -39,7 +40,8 @@ const routes: Routes = [
   },
   {
     path: 'administration',
-    component: AdministrationComponent
+    component: AdministrationComponent,
+    canActivate: [AdminGuard]
   }
 ];
 

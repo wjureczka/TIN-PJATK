@@ -37,7 +37,7 @@ export class BarComponent implements OnInit {
   public handleOnMenuAddClick() {
       const dialogRef = this.dialog.open(AddBarMenuDialogComponent, {
         width: '50%',
-        data: { bar: this.bar }
+        data: this.bar
       });
 
       dialogRef.afterClosed().subscribe(result => {

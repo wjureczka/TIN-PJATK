@@ -6,6 +6,7 @@ import { Model, SchemaTypes } from 'mongoose';
 import { Bar, BarDocument } from './entities/bar.schema';
 import { BarMenu, BarMenuDocument } from './entities/barMenu.schema';
 import { BeerPrice, BeerPriceDocument } from './entities/beerPrice.schema';
+import { CreateBarMenuDto } from './dto/create-bar-menu.dto';
 
 @Injectable()
 export class BarsService {
@@ -22,14 +23,26 @@ export class BarsService {
     return bar.save();
   }
 
-  createBarMenu() {
-    const barMenu = new this.barMenuModel({
-      bar: '5fd60eb35a6c643ccebd7efe',
-      manufacturer: '5fd60085d325e52edb588f76',
-      beers: [],
+  async createBarMenu(barId: string, createBarMenuDto: CreateBarMenuDto) {
+    const bar = await this.barModel.findById(barId);
+
+    const beers = await this.beerPriceModel.insertMany(
+      createBarMenuDto.beers.map((beer) => ({
+        price: beer.price,
+        beer: beer.beerId,
+      })),
+    );
+
+    const barMenu = await new this.barMenuModel({
+      manufacturer: createBarMenuDto.manufacturerId,
+      beers,
     });
 
-    return barMenu.save();
+    await barMenu.save();
+
+    await bar.menu.push(barMenu);
+
+    return bar.save();
   }
 
   findAll({ limit = 10, page = 1 }) {

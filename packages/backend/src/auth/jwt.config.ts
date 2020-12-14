@@ -1,6 +1,6 @@
 const jwtConstants = {
   secret: 'very-secret-key-to-TIN',
-  expiresIn: '60s',
+  expiresIn: '3600s',
 };
 
 export default jwtConstants;

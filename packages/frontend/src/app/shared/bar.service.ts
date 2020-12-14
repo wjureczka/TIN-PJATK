@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpResponseBase} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Beer, ManufacturerWithBeers} from "../administration/administration.service";
 
@@ -38,5 +38,9 @@ export class BarService {
 
   getBar(barId: string) {
     return this.http.get(`bars/${barId}`) as Observable<Bar>;
+  }
+
+  addNewMenu(barId: string, menuDataToSend: any) {
+    return this.http.post(`bars/${barId}/menu`, menuDataToSend) as Observable<HttpResponseBase>
   }
 }

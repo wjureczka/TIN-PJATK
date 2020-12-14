@@ -6,12 +6,14 @@ import {
   Put,
   Param,
   Delete,
-  Query,
+  Query, Req, UseGuards,
 } from '@nestjs/common';
 import { BarsService } from './bars.service';
 import { CreateBarDto } from './dto/create-bar.dto';
 import { UpdateBarDto } from './dto/update-bar.dto';
 import { Public } from '../auth/public.decorator';
+import { CreateBarMenuDto } from './dto/create-bar-menu.dto';
+import {JwtAuthGuard} from "../auth/jwt.guard";
 
 export enum SortByType {
   BEST = 'BEST',
@@ -29,14 +31,16 @@ export class BarsController {
     return this.barsService.create(createBarDto);
   }
 
-  @Post('/bar-menu')
+  @Post('/:barId/menu')
   @Public()
-  createBarMenu() {
-    return this.barsService.createBarMenu();
+  createBarMenu(
+    @Param('barId') barId: string,
+    @Body() createBarMenuDto: CreateBarMenuDto,
+  ) {
+    return this.barsService.createBarMenu(barId, createBarMenuDto);
   }
 
   @Get()
-  @Public()
   findAll(@Query('sortBy') sortByKey: SortByType = SortByType.BEST) {
     const sortByMap = new Map([
       [SortByType.BEST, { thumbsUp: 'desc' }],

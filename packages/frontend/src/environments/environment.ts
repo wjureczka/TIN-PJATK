@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  TIN_API_URL: 'http://localhost:3001'
+  TIN_API_URL: 'http://beerbars.com:3001'
 };
 
 /*

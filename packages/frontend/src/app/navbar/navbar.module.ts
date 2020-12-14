@@ -7,6 +7,7 @@ import {NavbarComponent} from './navbar.component';
 import {UserMenuComponent} from './user-menu/user-menu.component';
 import {MatButtonModule} from '@angular/material/button';
 import {RouterModule} from '@angular/router';
+import {AuthService} from "../shared/auth.service";
 
 @NgModule({
   declarations: [
@@ -17,12 +18,15 @@ import {RouterModule} from '@angular/router';
     UserMenuComponent,
     NavbarComponent
   ],
+  providers: [
+    AuthService
+  ],
   imports: [
     CommonModule,
     TranslateModule,
     MatMenuModule,
     MatButtonModule,
-    RouterModule
+    RouterModule,
   ]
 })
 export class NavbarModule {

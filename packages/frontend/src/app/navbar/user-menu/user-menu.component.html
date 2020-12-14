@@ -1,1 +1,30 @@
-<p>user-menu works!</p>
+<ng-container *ngIf="!user">
+  <button mat-button [matMenuTriggerFor]="menu">
+    <span class="material-icons">
+      account_circle
+    </span>
+    <span class="material-icons">
+      expand_more
+    </span>
+  </button>
+  <mat-menu #menu="matMenu" xPosition="before">
+    <a routerLink="/login" routerLinkActive="true" mat-menu-item>Zaloguj się</a>
+    <a routerLink="/register" routerLinkActive="true" mat-menu-item>Zarejestruj się</a>
+  </mat-menu>
+</ng-container>
+
+<ng-container *ngIf="user">
+  <button mat-button [matMenuTriggerFor]="menu">
+     <span class="material-icons">
+      account_circle
+    </span>
+    {{user.email }}
+    <span class="material-icons">
+    expand_more
+  </span>
+  </button>
+  <mat-menu #menu="matMenu" xPosition="before">
+    <a routerLink="/administration" routerLinkActive="true" mat-menu-item *ngIf="user.isAdmin">Zarządzaj</a>
+    <a routerLink="/logout" routerLinkActive="true" mat-menu-item>Wyloguj się</a>
+  </mat-menu>
+</ng-container>

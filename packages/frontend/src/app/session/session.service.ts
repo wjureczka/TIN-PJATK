@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 interface LoginDTO {
@@ -12,6 +12,11 @@ interface RegisterDTO {
   password: string;
 }
 
+interface LoginResponse {
+  access_token: string;
+  refresh_token: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,11 +24,11 @@ export class SessionService {
 
   constructor(private http: HttpClient) { }
 
-  login(loginDTO: LoginDTO): Observable<any> {
-    return this.http.post('auth/login', loginDTO);
+  login(loginDTO: LoginDTO) {
+    return this.http.post<LoginResponse>('auth/login', loginDTO, { withCredentials: true });
   }
 
-  register(registerDTO: RegisterDTO): Observable<any> {
+  register(registerDTO: RegisterDTO) {
     return this.http.post('users', registerDTO);
   }
 }

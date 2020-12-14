@@ -4,8 +4,9 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { ValidationPipe } from '@nestjs/common';
-import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
+import fastifyCookie from "fastify-cookie";
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -14,7 +15,11 @@ async function bootstrap() {
   );
 
   app.useGlobalPipes(new ValidationPipe());
-  app.enableCors();
+  app.enableCors({
+    origin: ['http://beerbars.com:4200'],
+    credentials: true
+  });
+  app.register(fastifyCookie);
 
   const configService = app.get(ConfigService);
   const SERVER_PORT = configService.get('SERVER_PORT');

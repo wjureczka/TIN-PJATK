@@ -1,6 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {catchError, tap} from 'rxjs/operators';
-import {Observable, of} from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
 
@@ -17,8 +15,10 @@ export class RegisterPageComponent implements OnInit {
   @ViewChild('form')
   form: CredentialsFormComponent;
 
-  constructor(private sessionService: SessionService, private snackbar: MatSnackBar, private router: Router) {
-  }
+  constructor(private sessionService: SessionService,
+              private snackbar: MatSnackBar,
+              private router: Router
+  ) {}
 
   ngOnInit(): void {
   }
