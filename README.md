@@ -1,4 +1,4 @@
-# TIN-PJATK
+# TIN-PJATK - WORK IN PROGRESS
 TIN-PJATK is a final exam study project. It consists of 2 subprojects: frontend and backend. The main purpose is to create somekind of a web system.
 
 ## Prerequisites
