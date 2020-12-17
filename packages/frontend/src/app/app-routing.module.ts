@@ -8,6 +8,9 @@ import {BarComponent} from "./bar/bar.component";
 import {ContactComponent} from "./contact/contact.component";
 import {AdministrationComponent} from "./administration/administration.component";
 import {AdminGuard} from "./core/admin.guard";
+import {BarCreatorComponent} from "./bar-creator/bar-creator.component";
+import {AuthGuard} from "./core/auth.guard";
+import {LogoutComponent} from "./session/logout/logout.component";
 
 const routes: Routes = [
   {
@@ -35,6 +38,10 @@ const routes: Routes = [
     component: LoginPageComponent,
   },
   {
+    path: 'logout',
+    component: LogoutComponent
+  },
+  {
     path: 'contact',
     component: ContactComponent
   },
@@ -42,6 +49,11 @@ const routes: Routes = [
     path: 'administration',
     component: AdministrationComponent,
     canActivate: [AdminGuard]
+  },
+  {
+    path: 'bar-creator',
+    component: BarCreatorComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

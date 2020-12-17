@@ -6,7 +6,6 @@ type UserDocument = User & Document;
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 class User {
-  @Prop({ type: SchemaTypes.ObjectId })
   _id: string;
 
   @Prop({ required: true, unique: true })

@@ -20,23 +20,6 @@ import { DUPLICATE_KEY } from '../config/mongodb-errors';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Public()
-  @Post()
-  async create(@Res() response, @Body() createUserDto: CreateUserDto) {
-    const hashedPassword = await argon.hash(createUserDto.password);
-
-    return await this.usersService
-      .create({ ...createUserDto, password: hashedPassword })
-      .then((user) => response.send({ userId: user._id, email: user.email }))
-      .catch((error) => {
-        if (error.code === DUPLICATE_KEY) {
-          return response.code(StatusCodes.CONFLICT).send();
-        }
-
-        return error;
-      });
-  }
-
   @Get()
   findAll() {
     return this.usersService.findAll();

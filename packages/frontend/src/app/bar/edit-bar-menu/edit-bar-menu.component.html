@@ -1,0 +1,42 @@
+<h1 mat-dialog-title>Edytuj menu</h1>
+<div mat-dialog-content>
+
+  <p>{{barMenuToEdit.manufacturer.name}}</p>
+
+  <ul class="edit-bar-menu-dialog__manufacturer-beers">
+    <li class="edit-bar-menu-dialog__manufacturer-beers-item">
+      <div>
+        Nazwa
+      </div>
+      <div>
+        Zawartość alkoholu
+      </div>
+      <div>
+        Cena
+      </div>
+    </li>
+
+    <li *ngFor="let beerMenu of barMenuToEdit.beers" class="edit-bar-menu-dialog__manufacturer-beers-item">
+      <div>
+        {{beerMenu.beer.name}}
+      </div>
+      <div>
+        {{beerMenu.beer.alcoholContent}}
+      </div>
+      <div>
+        <input matInput placeholder="Cena" type="number" [(ngModel)]="beerMenu.price" min="0">
+      </div>
+    </li>
+  </ul>
+
+</div>
+
+<div mat-dialog-actions class="edit-bar-menu-dialog__actions">
+  <button mat-button (click)="onClose()">Zamknij</button>
+  <button mat-flat-button
+          color="primary"
+          (click)="editBarMenu()"
+  >
+    Zapisz
+  </button>
+</div>

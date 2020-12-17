@@ -16,13 +16,13 @@ interface ManufacturerBeerElement extends Beer {
 })
 export class ManufacturerBeersComponent implements OnInit {
 
+  @Input()
+  private readonly manufacturerBeers: Beer[] = []
+
+  @Input()
+  private manufacturedId: string;
+
   public displayedColumns: string[] = ['index', 'name', 'alcoholContent', 'actions'];
-
-  @Input()
-  public manufacturerBeers: Beer[] = []
-
-  @Input()
-  public manufacturedId: string;
 
   public manufacturerBeersDataSource: ManufacturerBeerElement[] = [];
 
@@ -56,6 +56,7 @@ export class ManufacturerBeersComponent implements OnInit {
     element.isEditable = !element.isEditable;
   }
 
+
   public cancelRowEdition(element) {
     element.isEditable = false;
 
@@ -63,7 +64,7 @@ export class ManufacturerBeersComponent implements OnInit {
     element.newAlcoholContent = element.alcoholContent;
   }
 
-  public handleOnEditionDone(element) {
+  public finishRowEdition(element) {
     this.administrationService.changeBeer({
       _id: element._id,
       name: element.newName,
@@ -75,11 +76,11 @@ export class ManufacturerBeersComponent implements OnInit {
         element = {...element, ...beer};
       })
       .catch(() => {
-        this.snackbar.open('Nie udało się edytować piwa');
+        this.snackbar.open('Nie udało się edytować piwa', '', { duration: 1000 });
       })
   }
 
-  public handleOnAddBeerClick() {
+  public addVirtualBeer() {
     const virtualBeerName = 'Tutaj wpisz nazwę';
     const virtualBeerAlcoholContent = 'Tutaj wpisz zawartość alkoholu w %';
 
@@ -97,23 +98,39 @@ export class ManufacturerBeersComponent implements OnInit {
     this.manufacturerBeersDataSource = [...this.manufacturerBeersDataSource, virtualBeer];
   }
 
-  public handleOnBeerAdd(beer: ManufacturerBeerElement) {
+  public deleteBeer(element: ManufacturerBeerElement) {
     this.administrationService
-      .addBeer({ _manufacturerId: this.manufacturedId,  name: beer.newName, alcoholContent: beer.newAlcoholContent })
+      .deleteBeer(this.manufacturedId, element._id)
+      .toPromise()
+      .then(() => {
+        this.deleteBeerFromDataSource(element);
+      })
+      .catch(() => {
+        this.snackbar.open('Nie udało się usunąć piwa', '', { duration: 1000 });
+      });
+  }
+
+  public addBeer(virtualBeer: ManufacturerBeerElement) {
+    this.administrationService
+      .addBeer({
+        _manufacturerId: this.manufacturedId,
+        name: virtualBeer.newName,
+        alcoholContent: virtualBeer.newAlcoholContent
+      })
       .toPromise()
       .then((newBeer) => {
-        this.deleteBeerFromDataSource(beer);
+        this.deleteBeerFromDataSource(virtualBeer);
 
         const newBeerDataSource = this.prepareManufacturerBeerDataSource(newBeer);
 
         this.manufacturerBeersDataSource = [...this.manufacturerBeersDataSource, newBeerDataSource];
       })
       .catch(() => {
-        this.snackbar.open('Nie udało dodać się piwa')
+        this.snackbar.open('Nie udało dodać się piwa', '', { duration: 1000 })
       })
   }
 
-  public handleOnCancelBeerAdd(beer: ManufacturerBeerElement) {
+  public cancelBeerAdd(beer: ManufacturerBeerElement) {
     this.deleteBeerFromDataSource(beer);
   }
 

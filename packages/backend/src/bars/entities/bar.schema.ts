@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, SchemaTypes } from 'mongoose';
+import { Document, SchemaTypes, Types } from 'mongoose';
 import { BarMenu } from './barMenu.schema';
 
 type BarDocument = Bar & Document;
@@ -32,12 +32,15 @@ class Bar {
   @Prop({ required: true, default: false })
   isAcceptedByAdmin: boolean;
 
+  @Prop({ type: SchemaTypes.ObjectId, ref: 'User', required: true })
+  ownedBy: string;
+
   @Prop({
     required: true,
     default: [],
     type: [{ type: SchemaTypes.ObjectId, ref: 'BarMenu' }],
   })
-  menu: BarMenu[];
+  menu: Types.Array<BarMenu>;
 }
 
 const BarSchema = SchemaFactory.createForClass(Bar);

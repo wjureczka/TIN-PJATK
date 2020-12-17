@@ -1,23 +1,25 @@
-<nav class="nav">
-  <a routerLink="./home" routerLinkActive="active">
-    <img src="assets/logo.png" alt="logo" class="nav__logo"/>
-  </a>
-
-  <div class="nav__links">
-    <a class="nav__link" routerLink="./beer-bars" routerLinkActive="active">
-      Bary piwne
+<div class="nav-wrapper">
+  <nav class="nav">
+    <a routerLink="./home" routerLinkActive="active">
+      <img src="assets/logo.png" alt="logo" class="nav__logo"/>
     </a>
 
-    <a class="nav__link" routerLink="./bar-creator" routerLinkActive="active">
-      Dodaj bar
-    </a>
+    <div class="nav__links">
+      <a class="nav__link" routerLink="./beer-bars" routerLinkActive="active">
+        Bary piwne
+      </a>
 
-    <a class="nav__link" routerLink="./contact" routerLinkActive="active">
-      Kontakt
-    </a>
-  </div>
+      <a class="nav__link" routerLink="./bar-creator" routerLinkActive="active">
+        Dodaj bar
+      </a>
 
-  <div class="nav__menu">
-    <app-user-menu></app-user-menu>
-  </div>
-</nav>
+      <a class="nav__link" routerLink="./contact" routerLinkActive="active">
+        Kontakt
+      </a>
+    </div>
+
+    <div class="nav__menu">
+      <app-user-menu></app-user-menu>
+    </div>
+  </nav>
+</div>

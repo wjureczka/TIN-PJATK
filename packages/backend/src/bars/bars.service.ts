@@ -17,9 +17,8 @@ export class BarsService {
     private beerPriceModel: Model<BeerPriceDocument>,
   ) {}
 
-  create(createBarDto: CreateBarDto) {
-    const bar = new this.barModel(createBarDto);
-
+  createBar(createBarDto: CreateBarDto, ownerId: string) {
+    const bar = new this.barModel({...createBarDto, ownedBy: ownerId });
     return bar.save();
   }
 
@@ -45,11 +44,11 @@ export class BarsService {
     return bar.save();
   }
 
-  findAll({ limit = 10, page = 1 }) {
-    return this.barModel.find();
+  public findBarMenuById(barId: string) {
+    return this.barMenuModel.findById(barId);
   }
 
-  findAllWithSort({
+  public findAllWithSort({
     limit = 10,
     page = 1,
     sortBy = { thumbsUp: 'desc' },
@@ -66,7 +65,7 @@ export class BarsService {
       .limit(limit);
   }
 
-  async findOne(id: string) {
+  async findOneById(id: string) {
     return this.barModel.findById(id).populate({
       path: 'menu',
       populate: [

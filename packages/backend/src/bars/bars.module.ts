@@ -5,6 +5,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Bar, BarSchema } from './entities/bar.schema';
 import {BarMenu, BarMenuSchema} from "./entities/barMenu.schema";
 import {BeerPrice, BeerPriceSchema} from "./entities/beerPrice.schema";
+import {UsersService} from "../users/users.service";
+import {UsersModule} from "../users/users.module";
 
 @Module({
   imports: [
@@ -22,6 +24,7 @@ import {BeerPrice, BeerPriceSchema} from "./entities/beerPrice.schema";
         schema: BeerPriceSchema,
       },
     ]),
+    UsersModule
   ],
   controllers: [BarsController],
   providers: [BarsService],

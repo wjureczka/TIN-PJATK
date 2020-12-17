@@ -46,10 +46,10 @@ export class AddBarMenuDialogComponent implements OnInit {
     const manufacturerId = this.selectedManufacturer._id;
     const beers = this.selectedManufacturer.beers
       .filter((beer) => beer.price > 0)
-      .map((beer) => ({ beerId: beer._id, price: beer.price }))
+      .map((beer) => ({beerId: beer._id, price: beer.price}))
 
-    if(!beers.length) {
-      this.snackbar.open('Nie wybrano żadnych piw. Cena musi wynosić więcej niż 0.', '', { duration: 1000 })
+    if (!beers.length) {
+      this.snackbar.open('Nie wybrano żadnych piw. Cena musi wynosić więcej niż 0.', '', {duration: 1000})
       return;
     }
 
@@ -58,17 +58,17 @@ export class AddBarMenuDialogComponent implements OnInit {
       beers
     };
 
-    this.barService.addNewMenu(this.bar._id, menuDataToSend)
+    this.barService.addBarMenu(this.bar._id, menuDataToSend)
       .toPromise()
       .then((data) => {
-        console.log(data);
+        this.dialogRef.close(true);
       })
-      .catch((error) => {
-        this.snackbar.open('Nie udało się stworzyć menu!')
+      .catch(() => {
+        this.snackbar.open('Nie udało się stworzyć menu!', '', { duration: 1000 })
       })
   }
 
-  private mapManufacturerWithBeers(manufacturer: ManufacturerWithBeers): AddManufacturerWithBeersDialog {
+  private static mapManufacturerWithBeers(manufacturer: ManufacturerWithBeers): AddManufacturerWithBeersDialog {
     return {...manufacturer, beers: manufacturer.beers.map((beer) => ({...beer, price: 0}))};
   }
 
@@ -77,10 +77,14 @@ export class AddBarMenuDialogComponent implements OnInit {
       .toPromise()
       .then((manufacturers) => {
         this.manufacturers = manufacturers;
-        this.mappedManufacturers = manufacturers.map(this.mapManufacturerWithBeers);
+
+        const alreadyHaveManufacturersIds = this.bar.menu.map((menu) => menu.manufacturer._id)
+        this.mappedManufacturers = manufacturers
+          .filter((manufacturer) => !alreadyHaveManufacturersIds.includes(manufacturer._id))
+          .map(AddBarMenuDialogComponent.mapManufacturerWithBeers);
       })
       .catch(() => {
-        this.snackbar.open('Nie udało się pobrać producentów i ich wyrobów');
+        this.snackbar.open('Nie udało się pobrać producentów i ich wyrobów', '', { duration: 1000 });
         this.dialogRef.close();
       });
   }

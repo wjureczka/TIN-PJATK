@@ -11,10 +11,11 @@ import {MatSelectModule} from "@angular/material/select";
 import {AdministrationService} from "../administration/administration.service";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
+import { EditBarMenuComponent } from './edit-bar-menu/edit-bar-menu.component';
 
 
 @NgModule({
-  declarations: [BarComponent, AddBarMenuDialogComponent],
+  declarations: [BarComponent, AddBarMenuDialogComponent, EditBarMenuComponent],
   imports: [
     CommonModule,
     MatProgressSpinnerModule,

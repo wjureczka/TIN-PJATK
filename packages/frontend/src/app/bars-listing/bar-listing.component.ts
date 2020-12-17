@@ -36,7 +36,7 @@ export class BarListingComponent implements OnInit {
       .then((response) => {
         this.bars = response;
       }).catch(() => {
-      this.snackbar.open('Nie udało się załadować barów!');
+      this.snackbar.open('Nie udało się załadować barów!', '', { duration: 1000 });
     })
   }
 

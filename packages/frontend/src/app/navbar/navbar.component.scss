@@ -1,6 +1,11 @@
 @import "~@angular/material/theming";
 @import "src/assets/layout";
 
+.nav-wrapper {
+  width: 100%;
+  box-shadow: 0 0 5px $black-12-opacity;
+}
+
 .nav {
   display: flex;
   align-items: baseline;
@@ -10,7 +15,6 @@
   margin-left: auto;
   margin-right: auto;
   padding: 10px 0;
-  box-shadow: 0 0 5px $black-12-opacity;
 
   &__links {
     display: flex;

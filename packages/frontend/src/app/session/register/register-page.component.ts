@@ -28,12 +28,12 @@ export class RegisterPageComponent implements OnInit {
 
     this.sessionService.register({ email, password }).subscribe(
       () => {
-        this.snackbar.open('Zarejestrowano!');
+        this.snackbar.open('Zarejestrowano!', '', { duration: 1000 });
 
         this.router.navigate(['/login']);
       },
       (() => {
-        this.snackbar.open('Ups!');
+        this.snackbar.open('Ups!', '', { duration: 1000 });
       })
     );
   }

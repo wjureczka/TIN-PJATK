@@ -1,16 +1,22 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpResponseBase} from "@angular/common/http";
-import {Observable} from "rxjs";
 import {Beer, ManufacturerWithBeers} from "../administration/administration.service";
 
 export enum SortByType {
-  BEST= 'BEST',
+  BEST = 'BEST',
   NEWEST = 'NEWEST',
   LONGEST_ON_MARKET = 'LONGEST_ON_MARKET'
 }
 
+export interface BarMenu {
+  _id: string;
+  manufacturer: Pick<ManufacturerWithBeers, 'name' | '_id'>
+  beers: { beer: Beer, price: number }[]
+}
+
 export interface Bar {
   _id: string
+  ownedBy: string;
   name: string;
   location: string;
   phoneNumber: string;
@@ -19,10 +25,14 @@ export interface Bar {
   coverPhoto: string;
   operatingSinceDate: Date;
   isAcceptedByAdmin: boolean;
-  menu: {
-    manufacturer: Pick<ManufacturerWithBeers, 'name'>
-    beers: { beer: Beer, price: number }[]
-  }[]
+  menu: BarMenu[]
+}
+
+interface CreateBarDto {
+  name: string;
+  location: string;
+  operatingSinceDate: Date;
+  phoneNumber: string;
 }
 
 @Injectable({
@@ -30,17 +40,30 @@ export interface Bar {
 })
 export class BarService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  getBars({ sortBy }) {
-    return this.http.get('bars', { params: { sortBy } }) as Observable<Bar[]>;
+  getBars({sortBy}) {
+    return this.http.get<Bar[]>('bars', {params: {sortBy}});
   }
 
   getBar(barId: string) {
-    return this.http.get(`bars/${barId}`) as Observable<Bar>;
+    return this.http.get<Bar>(`bars/${barId}`);
   }
 
-  addNewMenu(barId: string, menuDataToSend: any) {
-    return this.http.post(`bars/${barId}/menu`, menuDataToSend) as Observable<HttpResponseBase>
+  addBarMenu(barId: string, menuDataToSend: any) {
+    return this.http.post<HttpResponseBase>(`bars/${barId}/menu`, menuDataToSend);
+  }
+
+  deleteBarMenu(barId: string, barMenuId: string) {
+    return this.http.delete<HttpResponseBase>(`bars/${barId}/menu/${barMenuId}`);
+  }
+
+  updateBarMenu(barId: string, barMenu: BarMenu) {
+    return this.http.put<HttpResponseBase>(`bars/${barId}/menu/${barMenu._id}`, barMenu);
+  }
+
+  createBar(createBarDto: CreateBarDto) {
+    return this.http.post<Bar>('bars', createBarDto);
   }
 }

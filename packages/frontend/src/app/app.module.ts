@@ -17,6 +17,7 @@ import {AdministrationModule} from "./administration/administration.module";
 import {BarModule} from "./bar/bar.module";
 import {AuthService} from "./shared/auth.service";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {BarCreatorModule} from "./bar-creator/bar-creator.module";
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     BarListingModule,
     SessionModule,
     AdministrationModule,
+    BarCreatorModule,
     MatProgressSpinnerModule
   ],
   providers: [

@@ -7,11 +7,15 @@ import {
   Body,
   Res, Header,
 } from '@nestjs/common';
-import { StatusCodes } from 'http-status-codes';
-import { AuthService } from './auth.service';
-import { Public } from './public.decorator';
+import {StatusCodes} from 'http-status-codes';
+import {AuthService} from './auth.service';
+import {Public} from './public.decorator';
 import LoginUserDto from './dto/login-user.dto';
-import { UsersService } from '../users/users.service';
+import {UsersService} from '../users/users.service';
+import {CreateUserDto} from "../users/dto/create-user.dto";
+import * as argon from "argon2";
+import {DUPLICATE_KEY} from "../config/mongodb-errors";
+import has = Reflect.has;
 
 @Controller('auth')
 export class AuthController {
@@ -21,13 +25,30 @@ export class AuthController {
   constructor(
     private authService: AuthService,
     private userService: UsersService,
-  ) {}
+  ) {
+  }
+
+  @Public()
+  @Post('/register')
+  async create(@Res() response, @Body() createUserDto: CreateUserDto) {
+    const hashedPassword = await argon.hash(createUserDto.password);
+
+    return await this.userService
+      .create({...createUserDto, password: hashedPassword})
+      .catch((error) => {
+        if (error.code === DUPLICATE_KEY) {
+          return response.code(StatusCodes.CONFLICT).send();
+        }
+
+        return response.code(StatusCodes.INTERNAL_SERVER_ERROR).send();
+      });
+  }
 
   @Public()
   @Post('/login')
   @Header('access-control-allow-credentials', 'true')
   async login(@Res() response, @Body() loginUserDto: LoginUserDto) {
-   const user = await this.userService.findOneByEmail(loginUserDto.email);
+    const user = await this.userService.findOneByEmail(loginUserDto.email);
 
     if (!user) {
       return response.code(StatusCodes.BAD_REQUEST).send();
@@ -55,15 +76,15 @@ export class AuthController {
     });
 
     return response
-      .setCookie(this.JWT_ACCESS_TOKEN_COOKIE_NAME, jwtTokens.access_token, { path: '/', domain: '.beerbars.com' })
-      .setCookie(this.JWT_REFRESH_TOKEN_COOKIE_NAME, jwtTokens.refresh_token, { path: '/', domain: '.beerbars.com' })
+      .setCookie(this.JWT_ACCESS_TOKEN_COOKIE_NAME, jwtTokens.access_token, {path: '/', domain: '.beerbars.com'})
+      .setCookie(this.JWT_REFRESH_TOKEN_COOKIE_NAME, jwtTokens.refresh_token, {path: '/', domain: '.beerbars.com'})
       .code(200)
       .send();
   }
 
   @Get('/isLoggedIn')
   getProfile(@Request() request, @Response() response) {
-    if(request.user) {
+    if (request.user) {
       return response.code(StatusCodes.OK).send();
     }
 

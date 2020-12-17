@@ -43,8 +43,8 @@ export class BeersService {
     return this.manufacturerModel.find().populate('beers');
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} beer`;
+  findManufacturer(manufacturerId: string) {
+    return this.manufacturerModel.findById(manufacturerId);
   }
 
   updateManufacturer(id: string, updateBeerDto: UpdateManufacturerDto) {
@@ -65,27 +65,26 @@ export class BeersService {
       producedBy: manufacturerId,
     });
 
-    const manufacturer = await this.manufacturerModel.findByIdAndUpdate(
-      manufacturerId,
-      {
-        $addToSet: {
-          beers: newBeer,
-        },
-      },
-    );
-
-    return manufacturer.save() && newBeer.save();
+    return newBeer.save();
   }
 
-  async remove(id: string) {
+  async deleteManufacturer(manufacturerId: string) {
     const manufacturer = await this.manufacturerModel
-      .findById(id)
+      .findById(manufacturerId)
       .populate('beers');
 
     await this.beerModel.deleteMany({ producedBy: manufacturer._id });
 
-    await manufacturer.deleteOne();
+    return await manufacturer.deleteOne();
+  }
 
-    return;
+  async deleteBeer(manufacturerId: string, beerId: string) {
+    const manufacturer = await this.manufacturerModel.findById(manufacturerId).populate('beers');
+    const beer = await this.beerModel.findById(beerId);
+
+    // @ts-ignore
+    await manufacturer.beers.pull({ _id: beerId });
+
+    return  await manufacturer.save() && await beer.deleteOne();
   }
 }

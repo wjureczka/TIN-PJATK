@@ -1,14 +1,14 @@
-import { Document, SchemaTypes } from 'mongoose';
+import { Document, SchemaTypes, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 import { Manufacturer } from '../../beers/entities/manufacturer.schema';
-import { BeerPrice } from './beerPrice.schema';
+import { BeerPrice, BeerPriceDocument } from './beerPrice.schema';
 
 type BarMenuDocument = BarMenu & Document;
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 class BarMenu {
-  _id: string;
+  _id: Types.ObjectId;
 
   @Prop({
     required: true,
@@ -22,7 +22,7 @@ class BarMenu {
     default: [],
     type: [{ type: SchemaTypes.ObjectId, ref: BeerPrice.name }],
   })
-  beers: BeerPrice[];
+  beers: Types.Array<BeerPriceDocument>;
 }
 
 const BarMenuSchema = SchemaFactory.createForClass(BarMenu);

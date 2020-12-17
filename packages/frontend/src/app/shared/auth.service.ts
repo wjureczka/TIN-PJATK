@@ -27,17 +27,6 @@ export class AuthService {
   constructor(private http: HttpClient, private cookieService: CookieService) {
   }
 
-  public checkIfIsAuthorized() {
-    return this.http.get('auth/isLoggedIn', {withCredentials: true})
-      .toPromise()
-      .then(() => {
-        this.authorize();
-      })
-      .catch(() => {
-        this.setUser(null);
-      });
-  }
-
   public authorize() {
     const accessToken = this.getAccessTokenFromCookie();
 
@@ -54,6 +43,11 @@ export class AuthService {
     this.user.next(user);
   }
 
+  public cleanAuthorizationCookies() {
+    this.cookieService.delete(this.JWT_ACCESS_TOKEN_COOKIE_NAME, '/', '.beerbars.com');
+    this.user.next(null);
+  }
+
   public getUserFromAccessToken(accessToken: string): User | null {
     try {
       const jwtPayload = jwtDecode(accessToken) as JWTPayload;
@@ -64,8 +58,11 @@ export class AuthService {
         isAdmin: jwtPayload.isAdmin
       }
     } catch (e) {
-      console.error(e);
-      return null;
+      if(e.message === 'Invalid token specified: e is undefined') {
+        return null;
+      }
+
+      console.error({ ...e });
     }
   }
 

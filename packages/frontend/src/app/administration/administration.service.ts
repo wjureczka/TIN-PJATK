@@ -39,11 +39,15 @@ export class AdministrationService {
     return this.http.put(`manufacturers/beers/${beer._id}`, { ...beer }) as Observable<Beer>
   }
 
-  public addBeer(beer: Pick<Beer, '_manufacturerId' | 'name' | 'alcoholContent'>) {
-    return this.http.post(`manufacturers/${beer._manufacturerId}/beers`, { name: beer.name, alcoholContent: beer.alcoholContent }) as Observable<Beer>
+  public deleteManufacturer(manufacturer: ManufacturerWithBeers) {
+    return this.http.delete<HttpResponseBase>(`manufacturers/${manufacturer._id}`);
   }
 
-  public deleteManufacturer(manufacturer: ManufacturerWithBeers) {
-    return this.http.delete(`manufacturers/${manufacturer._id}`) as Observable<HttpResponseBase>
+  public addBeer(beer: Pick<Beer, '_manufacturerId' | 'name' | 'alcoholContent'>) {
+    return this.http.post<Beer>(`manufacturers/${beer._manufacturerId}/beers`, { name: beer.name, alcoholContent: beer.alcoholContent });
+  }
+
+  public deleteBeer(manufacturerId: string, beerId: string) {
+    return this.http.delete<HttpResponseBase>(`manufacturers/${manufacturerId}/beers/${beerId}`);
   }
 }

@@ -62,7 +62,7 @@ export class ManufacturerPanelComponent implements OnInit {
         this.isNameEditable = false;
       })
       .catch(() => {
-        this.snackbar.open('Nie udało zmienić się nazwy producenta');
+        this.snackbar.open('Nie udało zmienić się nazwy producenta', '', { duration: 1000 });
       })
   }
 
@@ -74,7 +74,7 @@ export class ManufacturerPanelComponent implements OnInit {
         this.onDeleteEvent.emit(this.manufacturer);
       })
       .catch(() => {
-        this.snackbar.open('Nie udało się usunąć producenta');
+        this.snackbar.open('Nie udało się usunąć producenta', '', { duration: 1000 });
       })
   }
 }

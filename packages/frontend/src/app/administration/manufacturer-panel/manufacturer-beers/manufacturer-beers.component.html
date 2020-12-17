@@ -31,12 +31,17 @@
     </th>
     <td mat-cell *matCellDef="let beer">
 
+
       <div *ngIf="!beer.isVirtual">
         <button mat-icon-button *ngIf="!beer.isEditable" (click)="openRowEdition(beer)">
           <span class="material-icons">edit</span>
         </button>
 
-        <button mat-icon-button *ngIf="beer.isEditable" (click)="handleOnEditionDone(beer)">
+        <button mat-icon-button *ngIf="!beer.isEditable" (click)="deleteBeer(beer)">
+          <span class="material-icons">delete</span>
+        </button>
+
+        <button mat-icon-button *ngIf="beer.isEditable" (click)="finishRowEdition(beer)">
           <span class="material-icons">done</span>
         </button>
 
@@ -46,29 +51,14 @@
       </div>
 
       <div *ngIf="beer.isVirtual">
-        <button mat-icon-button *ngIf="beer.isEditable" (click)="handleOnBeerAdd(beer)">
+        <button mat-icon-button *ngIf="beer.isEditable" (click)="addBeer(beer)">
           <span class="material-icons">done</span>
         </button>
 
-        <button mat-icon-button *ngIf="beer.isEditable" (click)="handleOnCancelBeerAdd(beer)">
-          <span class="material-icons">close</span>
+        <button mat-icon-button *ngIf="beer.isEditable" (click)="cancelBeerAdd(beer)">
+          <span class="material-icons">delete</span>
         </button>
       </div>
-    </td>
-
-    <td mat-cell *matCellDef="let beer">
-
-      <button mat-icon-button *ngIf="!beer.isEditable" (click)="openRowEdition(beer)">
-        <span class="material-icons">edit</span>
-      </button>
-
-      <button mat-icon-button *ngIf="beer.isEditable" (click)="handleOnEditionDone(beer)">
-        <span class="material-icons">done</span>
-      </button>
-
-      <button mat-icon-button *ngIf="beer.isEditable" (click)="cancelRowEdition(beer)">
-        <span class="material-icons">close</span>
-      </button>
     </td>
   </ng-container>
 
@@ -79,7 +69,7 @@
 <button class="manufacturer-beers__add"
         color="primary"
         mat-icon-button
-        (click)="handleOnAddBeerClick()"
+        (click)="addVirtualBeer()"
 >
   <span class="material-icons">
     add

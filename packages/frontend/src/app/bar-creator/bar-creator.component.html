@@ -1,0 +1,50 @@
+<div class="form-wrapper">
+  <form class="form" [formGroup]="barForm">
+    <h1 class="mat-h1">Dodaj bar</h1>
+
+    <mat-form-field>
+      <mat-label>Nazwa baru</mat-label>
+      <input matInput formControlName="name">
+      <mat-error *ngIf="barForm.controls.name.hasError('required')">
+        Wypełnij to pole
+      </mat-error>
+      <mat-error *ngIf="barForm.controls.name.hasError('minlength')">
+        To pole musi mieć minimum 3 znaki
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Lokalizacja</mat-label>
+      <input matInput formControlName="location">
+      <mat-error *ngIf="barForm.controls.location.hasError('required')">
+        Wypełnij to pole
+      </mat-error>
+      <mat-error *ngIf="barForm.controls.location.hasError('minlength')">
+        To pole musi mieć minimum 3 znaki
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Prowadzona działalność od</mat-label>
+      <input matInput formControlName="operatingSinceDate" type="date">
+      <mat-error *ngIf="barForm.controls.operatingSinceDate.hasError('required')">
+        Wypełnij to pole
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Numer kontaktowy</mat-label>
+      <input matInput formControlName="phoneNumber" type="tel">
+      <mat-error *ngIf="barForm.controls.phoneNumber.hasError('required')">
+        Wypełnij to pole
+      </mat-error>
+    </mat-form-field>
+
+    <button class="form__button" mat-flat-button color="primary" type="submit"
+            [disabled]="barForm.status === 'INVALID' || isLoading"
+            (click)="handleFormSubmit()"
+    >
+      Dodaj
+    </button>
+  </form>
+</div>

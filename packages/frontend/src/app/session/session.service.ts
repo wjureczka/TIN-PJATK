@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {AuthService} from "../shared/auth.service";
 
 interface LoginDTO {
   email: string;
@@ -22,13 +23,17 @@ interface LoginResponse {
 })
 export class SessionService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   login(loginDTO: LoginDTO) {
     return this.http.post<LoginResponse>('auth/login', loginDTO, { withCredentials: true });
   }
 
   register(registerDTO: RegisterDTO) {
-    return this.http.post('users', registerDTO);
+    return this.http.post('auth/register', registerDTO);
+  }
+
+  logout() {
+    this.authService.cleanAuthorizationCookies();
   }
 }

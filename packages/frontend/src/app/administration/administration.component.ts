@@ -32,7 +32,7 @@ export class AdministrationComponent implements OnInit {
         this.manufacturers.push(response);
       })
       .catch(() => {
-        this.snackbar.open('Nie udało się stworzyć nowego producenta')
+        this.snackbar.open('Nie udało się stworzyć nowego producenta', '', { duration: 1000 })
       });
 
     this.isLoading = false;
